@@ -26,6 +26,7 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class AdminMediaActionsPlugin
@@ -70,35 +71,49 @@ class AdminMediaActionsPlugin extends Plugin
             return;
         }
 
-        if ($this->config->get('plugins.admin-media-actions.show_samples')) {
-            // Sample Actions
-            $this->grav['media-actions']->addAction("SampleAction1", "Sample Action 1", "play-circle", function ($page, $mediaName, $payload) {
-                return [
-                    "path" => $page->path(),
-                    "route" => $page->route(),
-                    "mediaName" => $mediaName,
-                ];
-            });
-            $this->grav['media-actions']->addAction("SampleAction2", "Sample Action 2", "play-circle", function ($page, $mediaName, $payload) {
-                return [
-                    "path" => $page->path(),
-                    "route" => $page->route(),
-                    "mediaName" => $mediaName,
-                ];
-            });
-            $this->grav['media-actions']->addAction("SampleAction3", "Sample Action 3", "play-circle", function ($page, $mediaName, $payload) {
-                return [
-                    "path" => $page->path(),
-                    "route" => $page->route(),
-                    "mediaName" => $mediaName,
-                ];
-            });
+        $this->grav['media-actions']->addAction("SetSizeA", "Image size : 1x", "square", function ($page, $mediaName, $payload) {
+            $medium = $page->media()->get($mediaName);
+            $path = $medium->path() . '.meta.yaml';
+            $metaFileContent = Yaml::parse($path);
+            $metaFileContent['gridSize'] = 'small';
+            $yaml = Yaml::dump($metaFileContent);
+            file_put_contents($path, $yaml);
+            return [
+                "path" => $page->path(),
+                "route" => $page->route(),
+                "mediaName" => $mediaName,
+            ];
+        });
 
-            $this->grav['media-actions']->addAction("SampleForm", "Sample Form", "list", function ($page, $mediaName, $payload) {
-                return "ok";
-            });
-        }
 
+        $this->grav['media-actions']->addAction("SetSizeB", "Image size : 2x", "th-large", function ($page, $mediaName, $payload) {
+            $medium = $page->media()->get($mediaName);
+            $path = $medium->path() . '.meta.yaml';
+            $metaFileContent = Yaml::parse($path);
+            $metaFileContent['gridSize'] = 'medium';
+            $yaml = Yaml::dump($metaFileContent);
+            file_put_contents($path, $yaml);
+            return [
+                "path" => $page->path(),
+                "route" => $page->route(),
+                "mediaName" => $mediaName,
+            ];
+        });
+
+
+        $this->grav['media-actions']->addAction("SetSizeC", "Image size : 4x", "th", function ($page, $mediaName, $payload) {
+            $medium = $page->media()->get($mediaName);
+            $path = $medium->path() . '.meta.yaml';
+            $metaFileContent = Yaml::parse($path);
+            $metaFileContent['gridSize'] = 'large';
+            $yaml = Yaml::dump($metaFileContent);
+            file_put_contents($path, $yaml);
+            return [
+                "path" => $page->path(),
+                "route" => $page->route(),
+                "mediaName" => $mediaName,
+            ];
+        });
 
         $this->enable([
             'onAdminTwigTemplatePaths' => ['onAdminTwigTemplatePaths', 0],

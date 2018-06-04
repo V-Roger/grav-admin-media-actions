@@ -67,7 +67,7 @@ setInterval(function () {
     $('.dz-preview').each(function (i, dz) {
         if (!dz._actions) {
             dz._actions = true;
-            let actionsIndex = 3; //TODO hardcoded to standard action count
+            let actionsIndex = 4; //TODO hardcoded to standard action count
             //let top = 72; //TODO get max top of children (they are not in order)
             //let top = actionsCount * size - size; // the standard icons ar off by 1 pixel!?
 
