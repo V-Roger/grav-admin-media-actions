@@ -75,7 +75,7 @@ class AdminMediaActionsPlugin extends Plugin
             $medium = $page->media()->get($mediaName);
             $path = $medium->path() . '.meta.yaml';
             $metaFileContent = Yaml::parse($path);
-            if ($metaFileContent) {
+            if (is_array($metaFileContent)) {
                 $metaFileContent['gridSize'] = 'small';
             } else {
                 $metaFileContent = ['gridSize' => 'small'];
@@ -94,7 +94,7 @@ class AdminMediaActionsPlugin extends Plugin
             $medium = $page->media()->get($mediaName);
             $path = $medium->path() . '.meta.yaml';
             $metaFileContent = Yaml::parse($path);
-            if ($metaFileContent) {
+            if (is_array($metaFileContent)) {
                 $metaFileContent['gridSize'] = 'medium';
             } else {
                 $metaFileContent = ['gridSize' => 'medium'];
@@ -113,7 +113,7 @@ class AdminMediaActionsPlugin extends Plugin
             $medium = $page->media()->get($mediaName);
             $path = $medium->path() . '.meta.yaml';
             $metaFileContent = Yaml::parse($path);
-            if ($metaFileContent) {
+            if (is_array($metaFileContent)) {
                 $metaFileContent['gridSize'] = 'large';
             } else {
                 $metaFileContent = ['gridSize' => 'large'];
